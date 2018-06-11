@@ -6,6 +6,7 @@ class MyList
 {
 public:
     MyList();
+    void hello();
 };
 
 #endif // MYLIST_H
