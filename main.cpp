@@ -5,9 +5,12 @@
 
 int main()
 {
-    std::cout << "Hello World!" << std::endl;
+
     myList<int> l;
     l.hello();
-
+    l.pushBack(5);
+    l.pushBack(22);
+    l.pushBack(43);
+    l.pushBack(167);
     return 0;
 }
