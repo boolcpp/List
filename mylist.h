@@ -100,7 +100,7 @@ void myList<T>::pushBack(T &data)
 template<typename T>
 T &myList<T>::operator[](const unsigned short index)
 {
-    return T(nullptr);
+    //обработать поведение функции при index > nodeCount
 
   unsigned short counter = 0;
   Node<T>* currentNode = this->headNode;
