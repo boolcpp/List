@@ -12,5 +12,7 @@ int main()
     l.pushBack(22);
     l.pushBack(43);
     l.pushBack(167);
+    int a = 3;
+    l.pushBack(*&a);
     return 0;
 }

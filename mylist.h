@@ -18,6 +18,7 @@ public:
 
 };
 
+// класс экземпляром которого будет односвязный список
 template <typename T>
 class myList
 {
@@ -30,7 +31,7 @@ public:
     myList();
     ~myList();
     void hello();
-    void pushBack(T data);
+    void pushBack(T&& data);
 };
 
 template<typename T>
@@ -54,7 +55,7 @@ void myList<T>::hello()
 }
 
 template<typename T>
-void myList<T>::pushBack(T data)
+void myList<T>::pushBack(T &&data)
 {
     if(nodeCount == 0)
     {
