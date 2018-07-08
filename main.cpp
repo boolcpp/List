@@ -6,7 +6,7 @@
 int main()
 {
     std::cout << "Hello World!" << std::endl;
-    MyList l;
+    myList<int> l;
     l.hello();
 
     return 0;

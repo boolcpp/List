@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(ListSrc)
+set(PROJ_NAME myList)
+project(${PROJ_NAME})
 
-set(SOURCE_EXE main.cpp)
-set(SOURCE_LIB mylist.cpp)
+set(SOURCES main.cpp mylist.h)
+#set(SOURCE_LIB mylist.cpp)
 
-add_library(Mylist STATIC ${SOURCE_LIB})
+#add_library(Mylist STATIC ${SOURCE_LIB})
 
-add_executable(executableFile ${SOURCE_EXE})
+add_executable(${PROJ_NAME} ${SOURCES})
 
-target_link_libraries(executableFile Mylist)
+#target_link_libraries(executableFile Mylist)
