@@ -13,6 +13,8 @@ int main()
     l.pushBack(43);
     l.pushBack(167);
     int a = 3;
-    l.pushBack(*&a);
+    l.pushBack(a);
+
+    std::cout << l[4] << std::endl;
     return 0;
 }
