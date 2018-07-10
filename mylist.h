@@ -1,20 +1,27 @@
 #ifndef MYLIST_H
 #define MYLIST_H
+//#include <exception>
+typedef unsigned long int size_t;
+
+
+//catching errors
+class outOfRangeException {
+};
 
 //класс, экземпляром которого будет элемент из списка
 template <typename T>
-class Node
+class node
 {
 public:
-    Node* ptrNextNode; // указатель на следующий элемент
+    node* ptrNextNode; // указатель на следующий элемент
     T data;      // данные внутри элемента списка
 
-    Node(T data = T(), Node* ptrNextNode = nullptr) //при создании нового элемента списка нач условия
+    node(T data = T(), node* ptrNextNode = nullptr) //при создании нового элемента списка нач условия
     {
         this->data = data;
         this->ptrNextNode = ptrNextNode;
     }
-    ~Node();    //деструктор для элемента списка подумать
+    ~node();    //деструктор для элемента списка подумать
 
 };
 
@@ -23,8 +30,8 @@ template <typename T>
 class myList
 {
 private:
-    Node<T>* headNode;
-    unsigned short int nodeCount;  //все равно их не может быть меньше 0, экономия 2 bytes
+    node<T>* headNode;
+    size_t nodeCount;  //все равно их не может быть меньше 0, экономия 2 bytes
 
 
 public:
@@ -33,8 +40,8 @@ public:
     void hello();
     void pushBack(T &&data);
     void pushBack(T &data);
-    unsigned short getSize(){ return nodeCount;}
-    T& operator[](const unsigned short index);
+    size_t getSize(){ return nodeCount;}
+    T& operator[](int index);
 };
 
 template<typename T>
@@ -62,16 +69,16 @@ void myList<T>::pushBack(T &&data)
 {
     if(nodeCount == 0)
     {
-        headNode = new Node<T>(data, nullptr);
+        headNode = new node<T>(data, nullptr);
     }
     else
     {
-        Node<T>* currentNode = this->headNode;
+        node<T>* currentNode = this->headNode;
         while(currentNode->ptrNextNode != nullptr)
         {
             currentNode = currentNode->ptrNextNode;
         }
-        Node<T>* endNode = new Node<T>(data, nullptr);
+        node<T>* endNode = new node<T>(data, nullptr);
         currentNode->ptrNextNode = endNode;
     }
     nodeCount++;
@@ -82,45 +89,38 @@ void myList<T>::pushBack(T &data)
 {
     if(nodeCount == 0)
     {
-        headNode = new Node<T>(data, nullptr);
+        headNode = new node<T>(data, nullptr);
     }
     else
     {
-        Node<T>* currentNode = this->headNode;
+        node<T>* currentNode = this->headNode;
         while(currentNode->ptrNextNode != nullptr)
         {
             currentNode = currentNode->ptrNextNode;
         }
-        Node<T>* endNode = new Node<T>(data, nullptr);
+        node<T>* endNode = new node<T>(data, nullptr);
         currentNode->ptrNextNode = endNode;
     }
     nodeCount++;
 }
 
 template<typename T>
-T &myList<T>::operator[](const unsigned short index)
+T &myList<T>::operator[](int index)
 {
     //обработать поведение функции при index > nodeCount
-
-  unsigned short counter = 0;
-  Node<T>* currentNode = this->headNode;
-  while (currentNode != nullptr)
-    {
-        if(counter == index)
-          {
-              return currentNode->data;
-          }
-        else
-          {
-              currentNode = currentNode->ptrNextNode;
-              counter++;
-          }
-    }
-
+    if (index>nodeCount)
+        throw outOfRangeException();
+  //unsigned short counter = 0;
+  node<T>* currentNode = this->headNode;
+  //while (currentNode != nullptr && index>0)
+  while (index>0)
+  {
+      currentNode = currentNode->ptrNextNode;
+      index--;
+  }
+  //if (currentNode==nullptr)
+  //    throw 0;
+  return currentNode->data;
 }
-
-
-
-
 
 #endif // MYLIST_H

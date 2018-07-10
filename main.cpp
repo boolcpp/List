@@ -16,5 +16,19 @@ int main()
     l.pushBack(a);
 
     std::cout << l[4] << std::endl;
+    try {
+        l[1000];
+    }
+    catch(outOfRangeException ex) {
+        std::cout<<"OutOfRangeException!";
+    }
+    catch (int x) {
+        std::cout<<"Int Exception:"<<x;
+    }
+
+    catch(...) {
+        std::cout<<"Other Exception!";
+    }
+
     return 0;
 }
