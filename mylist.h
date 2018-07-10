@@ -1,8 +1,10 @@
 #ifndef MYLIST_H
 #define MYLIST_H
-//#include <exception>
-typedef unsigned long int size_t;
-
+#include "myexception.h"
+//#include <stddef.h>  //for size_t, т.к. MinGW ругается на:
+                     //typedef unsigned long int size_t;
+                     //жертва кроссплатформенности
+typedef unsigned long int sizeT;
 
 //catching errors
 class outOfRangeException {
@@ -31,7 +33,7 @@ class myList
 {
 private:
     node<T>* headNode;
-    size_t nodeCount;  //все равно их не может быть меньше 0, экономия 2 bytes
+    sizeT nodeCount;  //все равно их не может быть меньше 0, экономия 2 bytes
 
 
 public:
@@ -40,7 +42,7 @@ public:
     void hello();
     void pushBack(T &&data);
     void pushBack(T &data);
-    size_t getSize(){ return nodeCount;}
+    sizeT getSize(){ return nodeCount;}
     T& operator[](int index);
 };
 
@@ -108,18 +110,17 @@ template<typename T>
 T &myList<T>::operator[](int index)
 {
     //обработать поведение функции при index > nodeCount
-    if (index>nodeCount)
-        throw outOfRangeException();
-  //unsigned short counter = 0;
+  if (index>nodeCount)
+    throw myException();
+
   node<T>* currentNode = this->headNode;
-  //while (currentNode != nullptr && index>0)
+
   while (index>0)
   {
       currentNode = currentNode->ptrNextNode;
       index--;
   }
-  //if (currentNode==nullptr)
-  //    throw 0;
+
   return currentNode->data;
 }
 

@@ -15,12 +15,13 @@ int main()
     int a = 3;
     l.pushBack(a);
 
+    myException ex;
     std::cout << l[4] << std::endl;
     try {
         l[1000];
     }
-    catch(outOfRangeException ex) {
-        std::cout<<"OutOfRangeException!";
+    catch(myException ex) {
+        std::cout<<"myException!";
     }
     catch (int x) {
         std::cout<<"Int Exception:"<<x;

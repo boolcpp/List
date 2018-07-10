@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(PROJ_NAME myList)
 project(${PROJ_NAME})
 
-set(SOURCES main.cpp mylist.h)
+set(HEADERS myexception.h)
+set(SOURCES main.cpp mylist.h myexception.cpp)
 
-add_executable(${PROJ_NAME} ${SOURCES})
+add_executable(${PROJ_NAME} ${SOURCES} ${HEADERS})
