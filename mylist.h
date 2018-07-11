@@ -44,7 +44,7 @@ public:
     void pushBack(T &lData);
     void pushFront(T &&rData);
     void pushFront(T &lData);
-    sizeT getSize(){ return nodeCount;}
+    sizeT getSize() const { return nodeCount;}
     T& operator[](int index);
 };
 
