@@ -40,8 +40,10 @@ public:
     myList();
     ~myList();
     void hello();
-    void pushBack(T &&data);
-    void pushBack(T &data);
+    void pushBack(T &&rData);
+    void pushBack(T &lData);
+    void pushFront(T &&rData);
+    void pushFront(T &lData);
     sizeT getSize(){ return nodeCount;}
     T& operator[](int index);
 };
@@ -67,11 +69,11 @@ void myList<T>::hello()
 }
 //pushBack for rvalue
 template<typename T>
-void myList<T>::pushBack(T &&data)
+void myList<T>::pushBack(T &&rData)
 {
     if(nodeCount == 0)
     {
-        headNode = new node<T>(data, nullptr);
+        headNode = new node<T>(rData, nullptr);
     }
     else
     {
@@ -80,18 +82,18 @@ void myList<T>::pushBack(T &&data)
         {
             currentNode = currentNode->ptrNextNode;
         }
-        node<T>* endNode = new node<T>(data, nullptr);
+        node<T>* endNode = new node<T>(rData, nullptr);
         currentNode->ptrNextNode = endNode;
     }
     nodeCount++;
 }
 //pushBack for lvalue
 template<typename T>
-void myList<T>::pushBack(T &data)
+void myList<T>::pushBack(T &lData)
 {
     if(nodeCount == 0)
     {
-        headNode = new node<T>(data, nullptr);
+        headNode = new node<T>(lData, nullptr);
     }
     else
     {
@@ -100,11 +102,34 @@ void myList<T>::pushBack(T &data)
         {
             currentNode = currentNode->ptrNextNode;
         }
-        node<T>* endNode = new node<T>(data, nullptr);
+        node<T>* endNode = new node<T>(lData, nullptr);
         currentNode->ptrNextNode = endNode;
     }
     nodeCount++;
 }
+
+template<typename T>
+void myList<T>::pushFront(T &&rData)
+{
+    node<T> *newHeadNode = new node<T>(rData, this->headNode);
+
+  //  newHeadNode->ptrNextNode = this->headNode;
+
+    headNode = newHeadNode;
+    nodeCount++;
+}
+
+template<typename T>
+void myList<T>::pushFront(T &lData)
+{
+    node<T> *newHeadNode = new node<T>(lData, this->headNode);
+
+  //  newHeadNode->ptrNextNode = this->headNode;
+
+    headNode = newHeadNode;
+    nodeCount++;
+}
+
 
 template<typename T>
 T &myList<T>::operator[](int index)
