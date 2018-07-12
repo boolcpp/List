@@ -11,6 +11,7 @@ public:
   myException(const char* str);
 
   const char* getMessage();
+
 };
 
 #endif // MYEXCEPTION_H
