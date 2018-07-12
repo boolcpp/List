@@ -21,19 +21,19 @@ int main()
 
 //    myException ex;
 //    std::cout << l[4] << std::endl;
-//    try {
-//        l[1000];
-//    }
-//    catch(myException ex) {
-//        std::cout<<"myException!";
-//    }
-//    catch (int x) {
-//        std::cout<<"Int Exception:"<<x;
-//    }
+    try {
+        l[1000];
+    }
+    catch(myException ex) {
+        std::cout<<"myException!\n"<<ex.getMessage();
+    }
+    catch (int x) {
+        std::cout<<"Int Exception:"<<x;
+    }
 
-//    catch(...) {
-//        std::cout<<"Other Exception!";
-//    }
+    catch(...) {
+        std::cout<<"Other Exception!";
+    }
     std::cout << l.getSize() << std::endl;
     return 0;
 }

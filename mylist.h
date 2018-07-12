@@ -118,7 +118,7 @@ void myList<T>::pushFront(T &&rData)
     headNode = newHeadNode;
     nodeCount++;
 }
-
+// pushFront for lvalue
 template<typename T>
 void myList<T>::pushFront(T &lData)
 {
@@ -136,7 +136,7 @@ T &myList<T>::operator[](int index)
 {
     //обработать поведение функции при index > nodeCount
   if (index>nodeCount)
-    throw myException();
+    throw myException("Out of range!");//10.1
 
   node<T>* currentNode = this->headNode;
 
