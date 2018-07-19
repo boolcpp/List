@@ -34,6 +34,6 @@ int main()
     catch(...) {
         std::cout<<"Other Exception!";
     }
-    std::cout << l.getSize() << std::endl;
+  //  std::cout << l.getSize() << std::endl;
     return 0;
 }

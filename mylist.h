@@ -1,6 +1,7 @@
 #ifndef MYLIST_H
 #define MYLIST_H
 #include "myexception.h"
+#include "exoutofrange.h"
 //#include <stddef.h>  //for size_t, т.к. MinGW ругается на:
                      //typedef unsigned long int size_t;
                      //жертва кроссплатформенности
@@ -136,7 +137,8 @@ T &myList<T>::operator[](int index)
 {
     //обработать поведение функции при index > nodeCount
   if (index>nodeCount)
-    throw myException("Out of range!");//10.1
+    //throw myException("Out of range!");//10.1
+      throw exOutOfRange();
 
   node<T>* currentNode = this->headNode;
 
