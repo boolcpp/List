@@ -138,7 +138,7 @@ T &myList<T>::operator[](int index)
     //обработать поведение функции при index > nodeCount
   if (index>nodeCount)
     //throw myException("Out of range!");//10.1
-      throw exOutOfRange();
+      throw myException("",__LINE__);//exOutOfRangeeyException("",__LINE__);
 
   node<T>* currentNode = this->headNode;
 

@@ -4,7 +4,6 @@
 
 class exOutOfRange : public myException
 {
-    char *msg;
 public:
     exOutOfRange();
 };

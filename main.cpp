@@ -24,8 +24,11 @@ int main()
     try {
         l[1000];
     }
+    catch(exOutOfRange ex) {
+        std::cout<<"Out of range exception\n"<<ex.getMessage()<<std::endl<<ex.getStrnum()<<std::endl;
+    }
     catch(myException ex) {
-        std::cout<<"myException!\n"<<ex.getMessage();
+        std::cout<<"myException!\n"<<ex.getMessage()<<std::endl<<ex.getStrnum()<<std::endl;
     }
     catch (int x) {
         std::cout<<"Int Exception:"<<x;
