@@ -10,17 +10,20 @@ myException::myException(const char* str_, int strnum_)
 {
     if (str_ == nullptr)
     {
-        str[0]=0;
+        str[0] = 0;
     }
-    else {
+    else
+    {
         strcpy(str,str_);
     }
     strnum = strnum_;
 }
 
 const char* myException::getMessage() {
-    if (str[0]==0)
+    if (str[0] == 0)
+    {
         return "Unknown exception";
+    }
     return str;
 }
 
