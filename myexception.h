@@ -6,13 +6,13 @@ class myException
 {
 protected:
     char str[128];
-    int strnum;
+    int strNumber;
 public:
   myException();
-  myException(const char* str, int strnum_=0);
+  myException(const char* str, int strNumber_=0);
 
   const char* getMessage();
-  int getStrnum();
+  int getStrNum();
 
 };
 

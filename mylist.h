@@ -1,5 +1,6 @@
 #ifndef MYLIST_H
 #define MYLIST_H
+#include <iostream>
 #include "myexception.h"
 #include "exoutofrange.h"
 //#include <stddef.h>  //for size_t, т.к. MinGW ругается на:
@@ -7,9 +8,9 @@
                      //жертва кроссплатформенности
 typedef unsigned long int sizeT;
 
-//catching errors
-class outOfRangeException {
-};
+////catching errors
+//class outOfRangeException {
+//};
 
 //класс, экземпляром которого будет элемент из списка
 template <typename T>
@@ -24,7 +25,7 @@ public:
         this->data = data;
         this->ptrNextNode = ptrNextNode;
     }
-    ~node();    //деструктор для элемента списка подумать
+    //~node();    //деструктор для элемента списка подумать
 
 };
 
@@ -41,11 +42,17 @@ public:
     myList();
     ~myList();
     void hello();
+
     void pushBack(T &&rData);
     void pushBack(T &lData);
+
     void pushFront(T &&rData);
     void pushFront(T &lData);
+    void popFront();
+
     sizeT getSize() const { return nodeCount;}
+    bool empty() const;
+
     T& operator[](int index);
 };
 
@@ -54,7 +61,6 @@ myList<T>::myList()
 {
     headNode = nullptr;
     nodeCount = 0;
-
 }
 
 template<typename T>
@@ -131,6 +137,36 @@ void myList<T>::pushFront(T &lData)
     nodeCount++;
 }
 
+template<typename T>
+void myList<T>::popFront()
+{
+    if(nodeCount > 0)
+    {
+        node<T> *temp = headNode;
+        headNode = headNode->ptrNextNode;
+
+        delete temp;
+        nodeCount--;
+    }
+    else
+    {
+        throw "Can not delete member of empty container";
+    }
+
+}
+
+template<typename T>
+bool myList<T>::empty() const
+{
+    if (nodeCount == 0) {
+        return  true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 
 template<typename T>
 T &myList<T>::operator[](int index)
@@ -138,8 +174,8 @@ T &myList<T>::operator[](int index)
     //обработать поведение функции при index > nodeCount
   if (index>nodeCount)
     //throw myException("Out of range!");//10.1
-      throw myException("",__LINE__);//exOutOfRangeeyException("",__LINE__);
-
+    //  throw myException("",__LINE__);//exOutOfRangeeyException("",__LINE__);
+      throw exOutOfRange("Element number is out of range",__FILE__, __LINE__);
   node<T>* currentNode = this->headNode;
 
   while (index>0)

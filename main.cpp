@@ -7,7 +7,7 @@ int main()
 {
 
     myList<int> l;
-    l.hello();
+   // l.hello();
     l.pushBack(1);
     l.pushBack(2);
     l.pushBack(3);
@@ -19,24 +19,39 @@ int main()
     int b = 6;
     l.pushFront(b);
 
+    l.popFront();
+
 //    myException ex;
 //    std::cout << l[4] << std::endl;
-    try {
-        l[1000];
-    }
-    catch(exOutOfRange ex) {
-        std::cout<<"Out of range exception\n"<<ex.getMessage()<<std::endl<<ex.getStrnum()<<std::endl;
-    }
-    catch(myException ex) {
-        std::cout<<"myException!\n"<<ex.getMessage()<<std::endl<<ex.getStrnum()<<std::endl;
-    }
-    catch (int x) {
-        std::cout<<"Int Exception:"<<x;
-    }
+//    try
+//    {
+//        l[1000];
+//    }
+//    catch(exOutOfRange ex)
+//    {
+//        std::cout << "exOutOfRange!\n"
+//                  << ex.getMessage() << std::endl
+//                  << ex.getStrNum() << std::endl;
+//        return -1;
+//    }
+//    catch(myException ex)
+//    {
+//        std::cout << "myException!\n"
+//                  << ex.getMessage() << std::endl
+//                  << ex.getStrNum() << std::endl;
+//        return -1;
+//    }
+//    catch (int x)
+//    {
+//        std::cout << "Int Exception:" << x;
+//        return -1;
+//    }
 
-    catch(...) {
-        std::cout<<"Other Exception!";
-    }
+//    catch(...)
+//    {
+//        std::cout << "Other Exception!";
+//        return -1;
+//    }
   //  std::cout << l.getSize() << std::endl;
     return 0;
 }

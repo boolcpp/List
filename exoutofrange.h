@@ -4,8 +4,10 @@
 
 class exOutOfRange : public myException
 {
+
 public:
     exOutOfRange();
+    exOutOfRange(const char *str_,const char *fileName, int lineNumber);
 };
 
 #endif // EXOUTOFRANGE_H

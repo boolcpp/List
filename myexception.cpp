@@ -6,7 +6,7 @@ myException::myException()
     str[0]=0;   //strcpy(str,"");
 }
 
-myException::myException(const char* str_, int strnum_)
+myException::myException(const char* str_, int strNumber_)
 {
     if (str_ == nullptr)
     {
@@ -16,7 +16,7 @@ myException::myException(const char* str_, int strnum_)
     {
         strcpy(str,str_);
     }
-    strnum = strnum_;
+    strNumber = strNumber_;
 }
 
 const char* myException::getMessage() {
@@ -27,6 +27,6 @@ const char* myException::getMessage() {
     return str;
 }
 
-int myException::getStrnum() {
-    return strnum;
+int myException::getStrNum() {
+    return strNumber;
 }
