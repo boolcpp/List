@@ -8,18 +8,14 @@ int main()
 
     myList<int> l;
    // l.hello();
-    l.pushBack(1);
-    l.pushBack(2);
-    l.pushBack(3);
-
-    int a = 4;
-    l.pushBack(a);
-
-    l.pushFront(5);
-    int b = 6;
-    l.pushFront(b);
-
-    l.popFront();
+    for(size_t i = 0; i < 100; i++)
+    {
+        l.pushBack(int(i));
+    }
+    for(size_t k = 100; k > 50; k--)
+    {
+        l.popFront();
+    }
 
 //    myException ex;
 //    std::cout << l[4] << std::endl;
