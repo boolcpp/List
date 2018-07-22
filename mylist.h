@@ -195,7 +195,7 @@ bool myList<T>::empty() const
 
 
 template<typename T>
-T &myList<T>::operator[](int index)
+T& myList<T>::operator[](int index)
 {
     //обработать поведение функции при index > nodeCount
   if (index>nodeCount)
