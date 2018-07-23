@@ -2,7 +2,7 @@
 #include <string.h>
 #include <string>
 
-exOutOfRange::exOutOfRange(const char *str_,const char *fileName, int lineNumber):myException(str,lineNumber)
+exOutOfRange::exOutOfRange(const char *str_,const char *fileName, int lineNumber):myException(str_, lineNumber)
 {
 //    strcpy(str,"Argument out of range");
    // getMessage();
@@ -13,6 +13,4 @@ exOutOfRange::exOutOfRange(const char *str_,const char *fileName, int lineNumber
     strcat(str, ". Line: ");
 
     strcat(str, (std::to_string(lineNumber)).c_str());
-
-
 }

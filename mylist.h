@@ -20,7 +20,7 @@ public:
     node* ptrNextNode; // указатель на следующий элемент
     T data;      // данные внутри элемента списка
 
-    node(T&& data = T(), node* ptrNextNode = nullptr) //при создании нового элемента списка нач условия
+    node(T data = T(), node* ptrNextNode = nullptr) //при создании нового элемента списка нач условия
     {
         this->data = data;
         this->ptrNextNode = ptrNextNode;
@@ -56,11 +56,11 @@ public:
     ~myList();
     void hello();
 
-    void pushBack(T &&rData);
-    void pushBack(T &lData);
+    void pushBack(T&& rData);
+    void pushBack(T& lData);
 
-    void pushFront(T &&rData);
-    void pushFront(T &lData);
+    void pushFront(T&& rData);
+    void pushFront(T& lData);
     void popFront();
     void clear();
 
@@ -90,11 +90,11 @@ void myList<T>::hello()
 }
 //pushBack for rvalue
 template<typename T>
-void myList<T>::pushBack(T &&rData)
+void myList<T>::pushBack(T&& rData)
 {
     if(nodeCount == 0)
     {
-        headNode = new node<T>(std::move(rData), nullptr);
+        headNode = new node<T>(rData, nullptr);
     }
     else
     {
@@ -103,18 +103,18 @@ void myList<T>::pushBack(T &&rData)
         {
             currentNode = currentNode->ptrNextNode;
         }
-        node<T>* endNode = new node<T>(std::move(rData), nullptr);
+        node<T>* endNode = new node<T>(rData, nullptr);
         currentNode->ptrNextNode = endNode;
     }
     nodeCount++;
 }
 //pushBack for lvalue
 template<typename T>
-void myList<T>::pushBack(T &lData)
+void myList<T>::pushBack(T& lData)
 {
     if(nodeCount == 0)
     {
-        headNode = new node<T>(std::move(lData), nullptr);
+        headNode = new node<T>(lData, nullptr);
     }
     else
     {
@@ -123,16 +123,16 @@ void myList<T>::pushBack(T &lData)
         {
             currentNode = currentNode->ptrNextNode;
         }
-        node<T>* endNode = new node<T>(std::move(lData), nullptr);
+        node<T>* endNode = new node<T>(lData, nullptr);
         currentNode->ptrNextNode = endNode;
     }
     nodeCount++;
 }
 
 template<typename T>
-void myList<T>::pushFront(T &&rData)
+void myList<T>::pushFront(T&& rData)
 {
-    node<T> *newHeadNode = new node<T>(std::move(rData), this->headNode);
+    node<T> *newHeadNode = new node<T>(rData, this->headNode);
 
   //  newHeadNode->ptrNextNode = this->headNode;
 
@@ -141,9 +141,9 @@ void myList<T>::pushFront(T &&rData)
 }
 // pushFront for lvalue
 template<typename T>
-void myList<T>::pushFront(T &lData)
+void myList<T>::pushFront(T& lData)
 {
-    node<T> *newHeadNode = new node<T>(std::move(lData), this->headNode);
+    node<T> *newHeadNode = new node<T>(lData, this->headNode);
 
   //  newHeadNode->ptrNextNode = this->headNode;
 
@@ -154,9 +154,9 @@ void myList<T>::pushFront(T &lData)
 template<typename T>
 void myList<T>::popFront()
 {
-    if(nodeCount > 0)
+    if(headNode != nullptr)
     {
-        node<T> *temp = headNode;
+        node<T>* temp = headNode;
         headNode = headNode->ptrNextNode;
 
         delete temp;
@@ -172,10 +172,11 @@ void myList<T>::popFront()
 template<typename T>
 void myList<T>::clear()
 {
-    if(nodeCount < 0)
+    if(headNode == nullptr)
+    {
         throw "bad quantity of elements in myList";
-    while (nodeCount)
-
+    }
+    while (headNode != nullptr)
     {
         popFront();
     }
