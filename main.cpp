@@ -1,18 +1,16 @@
 #include <iostream>
 #include "mylist.h"
-
+#include "tests/myString.h"
 //using namespace std;
 
 int main()
 {
 
     myList<int> l;
-   // l.hello();
-    l.pushBack(3);
-    int a = 13;
-    l.pushBack(a);
 
-    a = 22;
+//    char chMas[] = "asdasdasd";
+
+//    myString str1(myString &chMas);
     myException ex;
    // std::cout << l[4] << std::endl;
     try
