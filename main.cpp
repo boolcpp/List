@@ -6,42 +6,46 @@
 int main()
 {
 
-    myList<int> l;
+    myList<myString> l;
 
 //    char chMas[] = "asdasdasd";
 
 //    myString str1(myString &chMas);
-    myException ex;
    // std::cout << l[4] << std::endl;
-    try
-    {
-        l[1000];
-    }
-    catch(exOutOfRange ex)
-    {
-        std::cout << "exOutOfRange!\n" << std::endl
-                    << ex.getMessage() << std::endl;
-//                  << ex.getStrNum() << std::endl;
-        return -1;
-    }
-    catch(myException ex)
-    {
-        std::cout << "myException!\n"
-                  << ex.getMessage() << std::endl
-                  << ex.getStrNum() << std::endl;
-        return -1;
-    }
-    catch (int x)
-    {
-        std::cout << "Int Exception:" << x;
-        return -1;
-    }
 
-    catch(...)
-    {
-        std::cout << "Other Exception!";
-        return -1;
-    }
+    myString t("123");
+    myString t2 = t;
+    myString t3 = std::move(t);
+    //l.pushBack(myString("test"));
+//    try
+//    {
+//        l[1000];
+//    }
+//    catch(exOutOfRange ex)
+//    {
+//        std::cout << "exOutOfRange!\n" << std::endl
+//                    << ex.getMessage() << std::endl;
+////                  << ex.getStrNum() << std::endl;
+//        return -1;
+//    }
+//    catch(myException ex)
+//    {
+//        std::cout << "myException!\n"
+//                  << ex.getMessage() << std::endl
+//                  << ex.getStrNum() << std::endl;
+//        return -1;
+//    }
+//    catch (int x)
+//    {
+//        std::cout << "Int Exception:" << x;
+//        return -1;
+//    }
+
+//    catch(...)
+//    {
+//        std::cout << "Other Exception!";
+//        return -1;
+//    }
     return 0;
 }
 
