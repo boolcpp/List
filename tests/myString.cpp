@@ -18,7 +18,7 @@ myString::myString(const char* src)
     std::cout<<"myString(const char*) called"<<std::endl;
 }
 
-myString::myString(myString &src)
+myString::myString(myString& src)
 {
     len = src.len;
     buf = new char[len + 1];
@@ -32,6 +32,20 @@ myString::myString(myString&& src)
     buf = src.buf;
     src.buf = nullptr;
     std::cout<<"myString(myString&&) called"<<std::endl;
+}
+
+myString& myString::operator=(const myString& src)
+{
+    std::cout << "operator = called" << std::endl;
+    this->len = src.len;
+    if(this->buf != nullptr)
+    {
+        delete [] buf;
+    }
+    this->buf = new char[this->len + 1];
+    strcpy(buf, src.buf);
+
+    return * this;
 }
 
 myString::~myString()

@@ -6,12 +6,13 @@ class myString
 {
 private:
     char* buf;
-    int len;
+    unsigned int len;
 public:
     myString();
     myString(const char* src);
     myString(myString& src);
     myString(myString&& src);
+    myString& operator=(const myString& src);
     ~myString();
     //myString& myString(const myString&src);
     //myString& myString(myString&&src);
