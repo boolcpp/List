@@ -20,9 +20,15 @@ public:
     node* ptrNextNode; // указатель на следующий элемент
     T data;      // данные внутри элемента списка
 
-    node(T data = T(), node* ptrNextNode = nullptr) //при создании нового элемента списка нач условия
+    node(T& data, node* ptrNextNode = nullptr) //при создании нового элемента списка нач условия
     {
+
         this->data = data;
+        this->ptrNextNode = ptrNextNode;
+    }
+    node(T&& data, node* ptrNextNode = nullptr) //при создании нового элемента списка нач условия
+    {
+        this->data = std::move(data);
         this->ptrNextNode = ptrNextNode;
     }
     //деструктор для элемента списка подумать
@@ -94,7 +100,7 @@ void myList<T>::pushBack(T&& rData)
 {
     if(nodeCount == 0)
     {
-        headNode = new node<T>(rData, nullptr);
+        headNode = new node<T>(std::move(rData), nullptr);
     }
     else
     {
@@ -103,7 +109,7 @@ void myList<T>::pushBack(T&& rData)
         {
             currentNode = currentNode->ptrNextNode;
         }
-        node<T>* endNode = new node<T>(rData, nullptr);
+        node<T>* endNode = new node<T>(std::move(rData), nullptr);
         currentNode->ptrNextNode = endNode;
     }
     nodeCount++;

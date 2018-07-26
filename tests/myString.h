@@ -12,8 +12,10 @@ public:
     myString(const char* src);
     myString(myString& src);
     myString(myString&& src);
-    myString& operator=(const myString& src);
+    myString& operator = (const myString& src);
+    myString& operator = (myString&& src);
     ~myString();
+    const char* getString();
     //myString& myString(const myString&src);
     //myString& myString(myString&&src);
 };

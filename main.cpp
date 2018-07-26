@@ -15,11 +15,13 @@ int main()
 
     myString t("123");
     myString t2 = t;
-    myString t3 = std::move(t);
+    myString t3 = t;
     //l.pushBack(myString("test"));
     l.pushBack(t);
     l.pushBack(t2);
-    l.pushBack(t3);
+    l.pushBack(std::move(t3));
+
+
 //    try
 //    {
 //        l[1000];
