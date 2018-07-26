@@ -15,7 +15,9 @@ int main()
 
     myString t("123");
     myString t2 = t;
+    t = "qwer";
     myString t3 = t;
+    t = "qqq";
     //l.pushBack(myString("test"));
     l.pushBack(t);
     l.pushBack(t2);

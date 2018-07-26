@@ -4,21 +4,22 @@
 
 myString::myString()
 {
+    std::cout<<"myString() called";
     buf = nullptr;
     len = 0;
-    std::cout<<"myString() called";
 }
 
 myString::myString(const char* src)
 {
+    std::cout<<"myString(const char* src) called"<<std::endl;
     len = strlen(src);
-    buf = new char[len+1];
+    buf = new char[len + 1];
     strcpy(buf,src);
-    std::cout<<"myString(const char*) called"<<std::endl;
 }
 
 myString::myString(myString& src)
 {
+    std::cout<<"myString(myString& src) called"<<std::endl;
     if (src.buf == nullptr) {
         buf = nullptr;
         len = 0;
@@ -28,19 +29,18 @@ myString::myString(myString& src)
     len = src.len;
     buf = new char[len + 1];
     strcpy(buf, src.buf);
-    std::cout<<"myString(myString &) called"<<std::endl;
 }
 
 myString::myString(myString&& src)
 {
+    std::cout<<"myString(myString&& src) called"<<std::endl;
     len = src.len;
     buf = src.buf;
     src.buf = nullptr;
     src.len = 0;
-    std::cout<<"myString(myString&&) called"<<std::endl;
 }
 
-myString& myString::operator=(const myString& src)
+myString& myString::operator = (const myString& src)
 {
     std::cout << "operator = called for &" << std::endl;
     this->len = src.len;
@@ -59,7 +59,7 @@ myString& myString::operator=(const myString& src)
     return * this;
 }
 
-myString& myString::operator =(myString&& src)
+myString& myString::operator = (myString&& src)
 {
     std::cout << "operator = called for &&" << std::endl;
 
@@ -82,11 +82,11 @@ myString& myString::operator =(myString&& src)
 
 myString::~myString()
 {
+    std::cout<<"~myString called"<<std::endl;
     if(buf != nullptr)
     {
         delete [] buf;
     }
-    std::cout<<"~myString called"<<std::endl;
 }
 
 const char* myString::getString() {
