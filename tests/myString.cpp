@@ -4,7 +4,7 @@
 
 myString::myString()
 {
-    std::cout<<"myString() called";
+    std::cout<<"myString() called" << std::endl;
     buf = nullptr;
     len = 0;
 }
@@ -82,7 +82,10 @@ myString& myString::operator = (myString&& src)
 
 myString::~myString()
 {
-    std::cout<<"~myString called"<<std::endl;
+    if (buf!=nullptr)
+        std::cout<<"~myString called for "<<buf<<std::endl;
+    else
+        std::cout<<"~myString called for null"<<std::endl;
     if(buf != nullptr)
     {
         delete [] buf;

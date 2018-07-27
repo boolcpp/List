@@ -24,6 +24,11 @@ int main()
     l.pushBack(std::move(t3));
 
 
+    auto it = l.begin();
+    while (!it.isNull()) {
+        std::cout<<it.getData().getString()<<std::endl;
+        ++it;
+    }
 //    try
 //    {
 //        l[1000];

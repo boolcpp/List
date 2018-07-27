@@ -8,10 +8,7 @@
                      //жертва кроссплатформенности
 typedef unsigned long int sizeT;
 
-////catching errors
-//class outOfRangeException {
-//};
-
+template <typename T> class myList;
 //класс, экземпляром которого будет элемент из списка
 template <typename T>
 class node
@@ -20,12 +17,15 @@ public:
     node* ptrNextNode; // указатель на следующий элемент
     T data;      // данные внутри элемента списка
 
+    //конструктор для lvalue
     node(T& data, node* ptrNextNode = nullptr) //при создании нового элемента списка нач условия
     {
 
         this->data = data;
         this->ptrNextNode = ptrNextNode;
     }
+
+    //конструктор для rvalue
     node(T&& data, node* ptrNextNode = nullptr) //при создании нового элемента списка нач условия
     {
         this->data = std::move(data);
@@ -34,28 +34,50 @@ public:
     //деструктор для элемента списка подумать
     ~node()
     {
-//        //delete this->ptrNextNode;
-//        if(data != nullptr)
-//        {
-//            delete data;
-//        }
-//        else
-//        {
-//            throw "exception with data = nullptr";
-//        }
-
+        //что то тут я хотел написать а теперь уже забыл
     }
 
+};
+
+template <typename T>
+class listIterator {
+    //friend class myList<T>;
+public:
+    node<T>* current;
+    node<T>* prev;
+    myList<T> *list;
+public:
+    listIterator() { }
+    T& getData() {
+        if (current==nullptr)
+            throw myException();
+        return current->data;
+    }
+    void next()
+    {
+        if (current==nullptr)
+            return;
+        prev = current;
+        current = current->ptrNextNode;
+    }
+    bool isNull() {
+        return current==nullptr;
+    }
+
+    listIterator<T> operator++() {
+        next();
+        return *this;
+    }
 };
 
 // класс, экземпляром которого будет односвязный список
 template <typename T>
 class myList
 {
+
 private:
     node<T>* headNode;
     sizeT nodeCount;  //все равно их не может быть меньше 0, экономия 2 bytes
-
 
 public:
     myList();
@@ -74,6 +96,20 @@ public:
     bool empty() const;
 
     T& operator[](int index);
+
+    listIterator<T> begin() {
+        listIterator<T> it;
+        it.current = headNode;
+        it.prev = nullptr;
+        it.list = this;
+        return it;
+    }
+
+//    void removeAt(listIterator& it) {
+//        if (it.list != this)
+//            throw myException();
+//        TODO Remove
+//    }
 };
 
 template<typename T>
@@ -86,7 +122,7 @@ myList<T>::myList()
 template<typename T>
 myList<T>::~myList()
 {
-
+    clear();
 }
 
 template<typename T>
