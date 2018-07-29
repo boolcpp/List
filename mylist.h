@@ -9,18 +9,20 @@
 typedef unsigned long int sizeT;
 
 template <typename T> class myList;
+template <typename T> class listIterator;
 //класс, экземпляром которого будет элемент из списка
-template <typename T>
-class node
+template <typename T> class node
 {
-public:
+    friend class myList<T>;
+    friend class listIterator<T>;
+
     node* ptrNextNode; // указатель на следующий элемент
     T data;      // данные внутри элемента списка
 
+public:
     //конструктор для lvalue
     node(T& data, node* ptrNextNode = nullptr) //при создании нового элемента списка нач условия
     {
-
         this->data = data;
         this->ptrNextNode = ptrNextNode;
     }
@@ -35,36 +37,47 @@ public:
     ~node()
     {
         //что то тут я хотел написать а теперь уже забыл
+        //а теперь вроде додумал, что все равно все обьект такого класса будет создаваться на стеке, поэтому вроде как и фиг с деструктором
     }
 
 };
 
 template <typename T>
 class listIterator {
-    //friend class myList<T>;
-public:
+    friend class myList<T>;
+//public:
     node<T>* current;
     node<T>* prev;
-    myList<T> *list;
+    myList<T>* list;
 public:
     listIterator() { }
-    T& getData() {
-        if (current==nullptr)
+
+    T& getData()
+    {
+        if (current == nullptr)
+        {
             throw myException();
+        }
         return current->data;
     }
+
     void next()
     {
-        if (current==nullptr)
+        if (current == nullptr)
+        {
             return;
+        }
         prev = current;
         current = current->ptrNextNode;
     }
-    bool isNull() {
-        return current==nullptr;
+
+    bool isNull()
+    {
+        return current == nullptr;
     }
 
-    listIterator<T> operator++() {
+    listIterator<T> operator++()
+    {
         next();
         return *this;
     }
@@ -77,6 +90,7 @@ class myList
 
 private:
     node<T>* headNode;
+    node<T>* tailNode;
     sizeT nodeCount;  //все равно их не может быть меньше 0, экономия 2 bytes
 
 public:
@@ -90,14 +104,16 @@ public:
     void pushFront(T&& rData);
     void pushFront(T& lData);
     void popFront();
-    void clear();
 
-    sizeT getSize() const { return nodeCount;}
+    void clear();
     bool empty() const;
+    sizeT getSize() const { return nodeCount;}
+
 
     T& operator[](int index);
 
-    listIterator<T> begin() {
+    listIterator<T> begin()
+    {
         listIterator<T> it;
         it.current = headNode;
         it.prev = nullptr;
@@ -116,6 +132,7 @@ template<typename T>
 myList<T>::myList()
 {
     headNode = nullptr;
+    tailNode = nullptr;
     nodeCount = 0;
 }
 
@@ -136,17 +153,26 @@ void myList<T>::pushBack(T&& rData)
 {
     if(nodeCount == 0)
     {
-        headNode = new node<T>(std::move(rData), nullptr);
+        tailNode = new node<T>(std::move(rData), nullptr);
+        //headNode = new node<T>(std::move(rData), nullptr);
+        headNode = tailNode;
     }
     else
     {
-        node<T>* currentNode = this->headNode;
-        while(currentNode->ptrNextNode != nullptr)
-        {
-            currentNode = currentNode->ptrNextNode;
-        }
+//        node<T>* currentNode = this->headNode;
+//        while(currentNode->ptrNextNode != nullptr)
+//        {
+//            currentNode = currentNode->ptrNextNode;
+//        }
+//        node<T>* endNode = new node<T>(std::move(rData), nullptr);
+//        currentNode->ptrNextNode = endNode;
+//        tailNode = endNode;
+        //node<T>* currentTail = this->tailNode;
+
         node<T>* endNode = new node<T>(std::move(rData), nullptr);
-        currentNode->ptrNextNode = endNode;
+        tailNode->ptrNextNode = endNode;
+        tailNode = endNode;
+
     }
     nodeCount++;
 }
@@ -156,17 +182,22 @@ void myList<T>::pushBack(T& lData)
 {
     if(nodeCount == 0)
     {
-        headNode = new node<T>(lData, nullptr);
+        tailNode = new node<T>(lData, nullptr);
+        headNode = tailNode;
     }
     else
     {
-        node<T>* currentNode = this->headNode;
-        while(currentNode->ptrNextNode != nullptr)
-        {
-            currentNode = currentNode->ptrNextNode;
-        }
+//        node<T>* currentNode = this->headNode;
+//        while(currentNode->ptrNextNode != nullptr)
+//        {
+//            currentNode = currentNode->ptrNextNode;
+//        }
+//        node<T>* endNode = new node<T>(lData, nullptr);
+//        currentNode->ptrNextNode = endNode;
         node<T>* endNode = new node<T>(lData, nullptr);
-        currentNode->ptrNextNode = endNode;
+        tailNode->ptrNextNode = endNode;
+        tailNode = endNode;
+
     }
     nodeCount++;
 }

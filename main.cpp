@@ -23,9 +23,15 @@ int main()
     l.pushBack(t2);
     l.pushBack(std::move(t3));
 
+//    myList<int> l1;
+//    l1.pushBack(0);
+//    l1.pushBack(1);
+//    l1.pushBack(2);
+//    l1.pushBack(3);
 
     auto it = l.begin();
-    while (!it.isNull()) {
+    while (!it.isNull())
+    {
         std::cout<<it.getData().getString()<<std::endl;
         ++it;
     }
