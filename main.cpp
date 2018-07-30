@@ -14,20 +14,21 @@ int main()
    // std::cout << l[4] << std::endl;
 
     myString t("123");
-    myString t2 = t;
-    t = "qwer";
-    myString t3 = t;
-    t = "qqq";
-    //l.pushBack(myString("test"));
-    l.pushBack(t);
-    l.pushBack(t2);
-    l.pushBack(std::move(t3));
 
-//    myList<int> l1;
-//    l1.pushBack(0);
-//    l1.pushBack(1);
-//    l1.pushBack(2);
-//    l1.pushBack(3);
+    myString t2 = t;
+    t = "222";
+    myString t3 = t;
+    t = "333";
+    //l.pushBack(myString("test"));
+//    l.pushBack(t);
+//    l.pushBack(t2);
+//    l.pushBack(std::move(t3));
+
+    l.pushFront(t);
+    l.pushFront(t2);
+    l.pushFront(std::move(t3));
+
+    //std::cout << l.headNode->data.getString() << std::endl;
 
     auto it = l.begin();
     while (!it.isNull())

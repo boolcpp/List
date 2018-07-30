@@ -42,52 +42,54 @@ public:
 
 };
 
-template <typename T>
-class listIterator {
-    friend class myList<T>;
-//public:
-    node<T>* current;
-    node<T>* prev;
-    myList<T>* list;
-public:
-    listIterator() { }
 
-    T& getData()
-    {
-        if (current == nullptr)
-        {
-            throw myException();
-        }
-        return current->data;
-    }
-
-    void next()
-    {
-        if (current == nullptr)
-        {
-            return;
-        }
-        prev = current;
-        current = current->ptrNextNode;
-    }
-
-    bool isNull()
-    {
-        return current == nullptr;
-    }
-
-    listIterator<T> operator++()
-    {
-        next();
-        return *this;
-    }
-};
 
 // класс, экземпляром которого будет односвязный список
 template <typename T>
 class myList
 {
+public:
+    // ToDo убрать template, поставить сразу T
+    template <typename Y>
+    class iterator {
+        friend class myList<Y>;
+    //public:
+        node<Y>* current;
+        node<Y>* prev;
+        myList<Y>* list;
+    public:
+        iterator() { }
 
+        Y& getData()
+        {
+            if (current == nullptr)
+            {
+                throw myException();
+            }
+            return current->data;
+        }
+
+        void next()
+        {
+            if (current == nullptr)
+            {
+                return;
+            }
+            prev = current;
+            current = current->ptrNextNode;
+        }
+
+        bool isNull()
+        {
+            return current == nullptr;
+        }
+
+        iterator<Y> operator++()
+        {
+            next();
+            return *this;
+        }
+    };
 private:
     node<T>* headNode;
     node<T>* tailNode;
@@ -112,9 +114,9 @@ public:
 
     T& operator[](int index);
 
-    listIterator<T> begin()
+    iterator<T> begin()
     {
-        listIterator<T> it;
+        iterator<T> it;
         it.current = headNode;
         it.prev = nullptr;
         it.list = this;
@@ -151,28 +153,14 @@ void myList<T>::hello()
 template<typename T>
 void myList<T>::pushBack(T&& rData)
 {
-    if(nodeCount == 0)
+    if(headNode == nullptr)
     {
-        tailNode = new node<T>(std::move(rData), nullptr);
-        //headNode = new node<T>(std::move(rData), nullptr);
-        headNode = tailNode;
+        headNode = tailNode = new node<T>(std::move(rData), nullptr);
     }
     else
     {
-//        node<T>* currentNode = this->headNode;
-//        while(currentNode->ptrNextNode != nullptr)
-//        {
-//            currentNode = currentNode->ptrNextNode;
-//        }
-//        node<T>* endNode = new node<T>(std::move(rData), nullptr);
-//        currentNode->ptrNextNode = endNode;
-//        tailNode = endNode;
-        //node<T>* currentTail = this->tailNode;
-
-        node<T>* endNode = new node<T>(std::move(rData), nullptr);
-        tailNode->ptrNextNode = endNode;
-        tailNode = endNode;
-
+        tailNode->ptrNextNode = new node<T>(std::move(rData), nullptr);
+        tailNode = tailNode->ptrNextNode;
     }
     nodeCount++;
 }
@@ -182,22 +170,12 @@ void myList<T>::pushBack(T& lData)
 {
     if(nodeCount == 0)
     {
-        tailNode = new node<T>(lData, nullptr);
-        headNode = tailNode;
+        headNode = tailNode = new node<T>(lData, nullptr);
     }
     else
     {
-//        node<T>* currentNode = this->headNode;
-//        while(currentNode->ptrNextNode != nullptr)
-//        {
-//            currentNode = currentNode->ptrNextNode;
-//        }
-//        node<T>* endNode = new node<T>(lData, nullptr);
-//        currentNode->ptrNextNode = endNode;
-        node<T>* endNode = new node<T>(lData, nullptr);
-        tailNode->ptrNextNode = endNode;
-        tailNode = endNode;
-
+        tailNode->ptrNextNode = new node<T>(lData, nullptr);
+        tailNode = tailNode->ptrNextNode;
     }
     nodeCount++;
 }
@@ -205,23 +183,33 @@ void myList<T>::pushBack(T& lData)
 template<typename T>
 void myList<T>::pushFront(T&& rData)
 {
-    node<T> *newHeadNode = new node<T>(rData, this->headNode);
-
-  //  newHeadNode->ptrNextNode = this->headNode;
-
-    headNode = newHeadNode;
-    nodeCount++;
+    if(headNode == nullptr)
+    {
+        tailNode = new node<T>(rData, nullptr);
+        headNode = tailNode;
+    }
+    else
+    {
+        headNode->ptrNextNode = new node<T>(rData, this->headNode);
+        headNode = headNode->ptrNextNode;
+        nodeCount++;
+    }
 }
 // pushFront for lvalue
 template<typename T>
 void myList<T>::pushFront(T& lData)
 {
-    node<T> *newHeadNode = new node<T>(lData, this->headNode);
-
-  //  newHeadNode->ptrNextNode = this->headNode;
-
-    headNode = newHeadNode;
-    nodeCount++;
+    if(headNode == nullptr)
+    {
+        tailNode = new node<T>(lData, nullptr);
+        headNode = tailNode;
+    }
+    else
+    {
+        headNode->ptrNextNode = new node<T>(lData, this->headNode);
+        headNode = headNode->ptrNextNode;
+        nodeCount++;
+    }
 }
 
 template<typename T>
